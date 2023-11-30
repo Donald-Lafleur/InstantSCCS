@@ -8787,10 +8787,10 @@ var testModifiers = new Map([[CommunityService.HP, ["Maximum HP", "Maximum HP Pe
 function checkGithubVersion() {
   var _releaseBranch$commit;
 
-  var gitBranches = JSON.parse((0,external_kolmafia_namespaceObject.visitUrl)("https://api.github.com/repos/Pantocyclus/InstantSCCS/branches"));
+  var gitBranches = JSON.parse((0,external_kolmafia_namespaceObject.visitUrl)("https://api.github.com/repos/Donald-Lafleur/InstantSCCS/branches"));
   var releaseBranch = gitBranches.find(branchInfo => branchInfo.name === "release");
   var releaseSHA = (_releaseBranch$commit = releaseBranch === null || releaseBranch === void 0 ? void 0 : releaseBranch.commit.sha) !== null && _releaseBranch$commit !== void 0 ? _releaseBranch$commit : "Not Found";
-  var localBranch = (0,external_kolmafia_namespaceObject.gitInfo)("Pantocyclus-instantsccs-release");
+  var localBranch = (0,external_kolmafia_namespaceObject.gitInfo)("Donald-Lafleur-instantsccs-release");
   var localSHA = localBranch.commit;
 
   if (releaseSHA === localSHA) {
