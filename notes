@@ -1,0 +1,24 @@
+11 character hat and tea party option for spell damage instead of weapon damage
+
+pocket yeg soap		200%	4	4	can pull or make
+grim tobiko thing	150%	3	7	can pull or make
+
+mw Witch Breaded	200%	4	11
+mw Sparkly!		200%	4	15
+mw Celestial Mind	100%	2	17
+mw egg burps		100%	2	19
+pw You're Not Cooking	100%	2	21
+
+
+        const wishableEffects: Effect[] = [
+          $effect`Witch Breaded`,
+          $effect`Sparkly!`,
+        ];
+        wishableEffects.forEach((ef) => wishFor(ef, true));
+
+        const wishableEffects: Effect[] = [
+          $effect`Pyramid Power`,
+          $effect`Invincible`,
+          $effect`Medieval Mage Mayhem`,
+        ];
+        wishableEffects.forEach((ef) => wishFor(ef, true));
