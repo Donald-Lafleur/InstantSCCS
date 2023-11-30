@@ -157,6 +157,7 @@ export const SpellDamageQuest: Quest = {
         const usefulEffects: Effect[] = [
           $effect`AAA-Charged`,
           $effect`Arched Eyebrow of the Archmage`,
+          $effect`Bendin' Hell`,
           $effect`Carol of the Hells`,
           $effect`Cowrruption`,
           $effect`Destructive Resolve`,
