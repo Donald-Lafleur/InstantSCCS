@@ -228,7 +228,7 @@ export const WeaponDamageQuest: Quest = {
 
         const wishableEffects: Effect[] = [
           $effect`Pyramid Power`,
-          $effect`Invincible`,
+          $effect`Nigh-Invincible`,
           $effect`Medieval Mage Mayhem`,
         ];
         wishableEffects.forEach((ef) => wishFor(ef, true));
