@@ -79,7 +79,7 @@ export const WeaponDamageQuest: Quest = {
       completed: () =>
         get("_cargoPocketEmptied") ||
         !have($item`Cargo Cultist Shorts`) ||
-        get("instant_saveCargoShorts", false),
+        get("instant_saveCargoShortsWeapon", false),
       do: (): void => {
         visitUrl("inventory.php?action=pocket");
         visitUrl("choice.php?whichchoice=1420&option=1&pocket=284");
@@ -225,6 +225,13 @@ export const WeaponDamageQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         get("instant_weaponTestPulls").split(",").forEach(handleCustomPull);
+
+        const wishableEffects: Effect[] = [
+          $effect`Pyramid Power`,
+          $effect`Invincible`,
+          $effect`Medieval Mage Mayhem`,
+        ];
+        wishableEffects.forEach((ef) => wishFor(ef, true));
 
         if (
           have($skill`Aug. 13th: Left/Off Hander's Day!`) &&

@@ -17,6 +17,7 @@ import {
   restoreMp,
   retrieveItem,
   useSkill,
+  visitUrl,
 } from "kolmafia";
 import {
   $effect,
@@ -41,6 +42,7 @@ import {
   motherSlimeClan,
   startingClan,
   tryAcquiringEffect,
+  wishFor,
 } from "../lib";
 import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
@@ -54,7 +56,8 @@ export const SpellDamageQuest: Quest = {
   tasks: [
     {
       name: "Simmer",
-      completed: () => have($effect`Simmering`) || !have($skill`Simmer`),
+      completed: () =>
+        have($effect`Simmering`) || !have($skill`Simmer`) || get("instant_skipSimmer", false),
       do: () => useSkill($skill`Simmer`),
       limit: { tries: 1 },
     },
@@ -132,6 +135,18 @@ export const SpellDamageQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Cargo Shorts",
+      completed: () =>
+        get("_cargoPocketEmptied") ||
+        !have($item`Cargo Cultist Shorts`) ||
+        get("instant_saveCargoShortsSpell", false),
+      do: (): void => {
+        visitUrl("inventory.php?action=pocket");
+        visitUrl("choice.php?whichchoice=1420&option=1&pocket=177");
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Deep Dark Visions",
       completed: () =>
         have($effect`Visions of the Deep Dark Deeps`) ||
@@ -163,7 +178,7 @@ export const SpellDamageQuest: Quest = {
         const usefulEffects: Effect[] = [
           $effect`AAA-Charged`,
           $effect`Arched Eyebrow of the Archmage`,
-          $effect`Bendin' Hell`,
+          // $effect`Bendin' Hell`, only effects elemental spell damage which test ignores
           $effect`Carol of the Hells`,
           $effect`Cowrruption`,
           $effect`Destructive Resolve`,
@@ -171,6 +186,7 @@ export const SpellDamageQuest: Quest = {
           $effect`Jackasses' Symphony of Destruction`,
           $effect`Mental A-cue-ity`,
           $effect`Pisces in the Skyces`,
+          $effect`Sigils of Yeg`,
           $effect`Song of Sauce`,
           $effect`Spirit of Peppermint`,
           $effect`The Magic of LOV`,
@@ -180,6 +196,9 @@ export const SpellDamageQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
 
         get("instant_spellTestPulls").split(",").forEach(handleCustomPull);
+
+        const wishableEffects: Effect[] = [$effect`Witch Breaded`, $effect`Sparkly!`];
+        wishableEffects.forEach((ef) => wishFor(ef, true));
 
         const wines = $items`Sacramento wine, distilled fortified wine`;
         while (
