@@ -17939,7 +17939,7 @@ var BoozeDropQuest = {
       CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns);
     },
     outfit: {
-      modifier: "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch left-hand man"
+      modifier: "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch vampire vintner, -switch left-hand man"
     },
     limit: {
       tries: 1
