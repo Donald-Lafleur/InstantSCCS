@@ -53,7 +53,7 @@ import {
   setConfiguration,
   Station,
 } from "libram/dist/resources/2022/TrainSet";
-import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
+import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor, wishForEffects } from "../lib";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro, { haveFreeBanish } from "../combat";
@@ -367,7 +367,7 @@ export const BoozeDropQuest: Quest = {
         get("instant_boozeTestPulls").split(",").forEach(handleCustomPull);
 
         // If it saves us >= 6 turns, try using a wish
-        if (CommunityService.BoozeDrop.actualCost() >= 7) wishFor($effect`Infernal Thirst`);
+        wishForEffects([$effect`Infernal Thirst`], CommunityService.BoozeDrop)
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: (): void => {
