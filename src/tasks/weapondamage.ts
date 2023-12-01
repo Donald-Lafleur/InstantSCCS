@@ -141,8 +141,11 @@ export const WeaponDamageQuest: Quest = {
       name: "Glob of Melted Wax",
       completed: () => !have($item`glob of melted wax`) || have($item`wax hand`),
       do: (): void => {
-        create($item`wax hand`, 1);
-        visitUrl("main.php");
+        create(1, $item`wax hand`);
+        // visitUrl("main.php");
+        // visitUrl(`inv_use.php?pwd=${+myHash()}&which=3&whichitem=9310`);
+        // visitUrl(`choice.php?pwd&whichchoice=1218&option=2`)
+        // visitUrl(`choice.php?pwd&whichchoice=1218&option=6`)
       },
       limit: { tries: 1 },
     },
