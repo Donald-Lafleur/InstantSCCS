@@ -386,7 +386,7 @@ export const BoozeDropQuest: Quest = {
       },
       outfit: {
         modifier:
-          "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch disembodied hand, -switch vampire vintner, -switch left-hand man",
+          "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch vampire vintner, switch disembodied hand, -switch left-hand man",
       },
       limit: { tries: 1 },
     },
