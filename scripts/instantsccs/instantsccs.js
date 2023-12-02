@@ -18928,7 +18928,7 @@ var SpellDamageQuest = {
     }
   }, {
     name: "Cargo Shorts Soap",
-    completed: () => forbiddenEffects.includes(template_string_$effect(spelldamage_templateObject32 || (spelldamage_templateObject32 = spelldamage_taggedTemplateLiteral(["Sigils of Yeg"])))) || lib_have(template_string_$effect(spelldamage_templateObject33 || (spelldamage_templateObject33 = spelldamage_taggedTemplateLiteral(["Sigils of Yeg"])))) || lib_have(template_string_$item(spelldamage_templateObject34 || (spelldamage_templateObject34 = spelldamage_taggedTemplateLiteral(["Yeg's Motel Hand Soap"])))) || property_get("_cargoPocketEmptied") || !lib_have(template_string_$item(spelldamage_templateObject35 || (spelldamage_templateObject35 = spelldamage_taggedTemplateLiteral(["Cargo Cultist Shorts"])))),
+    completed: () => forbiddenEffects.includes(template_string_$effect(spelldamage_templateObject32 || (spelldamage_templateObject32 = spelldamage_taggedTemplateLiteral(["Sigils of Yeg"])))) || lib_have(template_string_$effect(spelldamage_templateObject33 || (spelldamage_templateObject33 = spelldamage_taggedTemplateLiteral(["Sigils of Yeg"])))) || lib_have(template_string_$item(spelldamage_templateObject34 || (spelldamage_templateObject34 = spelldamage_taggedTemplateLiteral(["Yeg's Motel hand soap"])))) || property_get("_cargoPocketEmptied") || !lib_have(template_string_$item(spelldamage_templateObject35 || (spelldamage_templateObject35 = spelldamage_taggedTemplateLiteral(["Cargo Cultist Shorts"])))),
     do: () => {
       (0,external_kolmafia_namespaceObject.cliExecute)("cargo pick 177");
     },
