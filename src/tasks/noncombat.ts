@@ -65,12 +65,7 @@ export const NoncombatQuest: Quest = {
       prepare: (): void => {
         if (have($item`Jurassic Parka`) && get("parkaMode") !== "pterodactyl")
           cliExecute("parka pterodactyl");
-        if (
-          get("_kgbClicksUsed") < 22 &&
-          have($item`Kremlin's Greatest Briefcase`) &&
-          !get("instant_saveKGBClicks", false)
-        )
-          cliExecute("Briefcase e -combat");
+
         const usefulEffects: Effect[] = [
           $effect`A Rose by Any Other Material`,
           $effect`Feeling Lonely`,
@@ -88,17 +83,17 @@ export const NoncombatQuest: Quest = {
           $effect`Puzzle Champ`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+
+        if (CommunityService.Noncombat.actualCost() === 1) return;
+        if (
+          get("_kgbClicksUsed") < 22 &&
+          have($item`Kremlin's Greatest Briefcase`) &&
+          !get("instant_saveKGBClicks", false)
+        )
+          cliExecute("Briefcase e -combat");
+
         get("instant_comTestPulls").split(",").forEach(handleCustomPull);
         cliExecute("maximize -combat"); // To avoid maximizer bug, we invoke this once more
-
-        if (
-          have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
-          !get("instant_saveAugustScepter", false) &&
-          numericModifier(equippedItem($slot`off-hand`), "Combat Rate") < 0 &&
-          CommunityService.Noncombat.actualCost() > 1
-        ) {
-          tryAcquiringEffect($effect`Offhand Remarkable`);
-        }
 
         // If it saves us >= 6 turns, try using a wish
         if (CommunityService.Noncombat.actualCost() >= 7) wishFor($effect`Disquiet Riot`);
