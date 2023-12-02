@@ -154,7 +154,7 @@ export const SpellDamageQuest: Quest = {
       completed: () =>
         forbiddenEffects.includes($effect`Sigils of Yeg`) ||
         have($effect`Sigils of Yeg`) ||
-        have($item`Yeg's Motel Hand Soap`) ||
+        have($item`Yeg's Motel hand soap`) ||
         get("_cargoPocketEmptied") ||
         !have($item`Cargo Cultist Shorts`),
       do: (): void => {
