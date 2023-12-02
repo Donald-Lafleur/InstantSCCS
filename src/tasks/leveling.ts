@@ -432,7 +432,7 @@ export const LevelingQuest: Quest = {
         get("_roninStoragePulls")
           .split(",")
           .includes(toInt($item`Pizza of Legend`).toString()) ||
-        get("_instant_skipPizzaOfLegend", false),
+        get("instant_skipPizzaOfLegend", false),
       do: (): void => {
         if (storageAmount($item`Pizza of Legend`) === 0) {
           print("Uh oh! You do not seem to have a Pizza of Legend in Hagnk's", "red");
