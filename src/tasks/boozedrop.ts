@@ -353,16 +353,12 @@ export const BoozeDropQuest: Quest = {
           $effect`Pork Barrel`,
           $effect`Nearly All-Natural`,
           $effect`The Spirit of Taking`,
+          $effect`There's No N in Love`,
           $effect`Singer's Faithful Ocelot`,
           $effect`Steely-Eyed Squint`,
           $effect`Uncucumbered`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
-
-        if (have($familiar`Trick-or-Treating Tot`) && have($item`li'l ninja costume`)) {
-          useFamiliar($familiar`Trick-or-Treating Tot`);
-          equip($slot`familiar`, $item`li'l ninja costume`);
-        }
 
         get("instant_boozeTestPulls").split(",").forEach(handleCustomPull);
 
@@ -385,8 +381,24 @@ export const BoozeDropQuest: Quest = {
         CommunityService.BoozeDrop.run(() => logTestSetup(CommunityService.BoozeDrop), maxTurns);
       },
       outfit: {
+        hat: $item`wad of used tape`,
+        back: $item`vampyric cloake`,
+        // weapon: [
+        //   $item`extra-large utility candle`,
+        //   $item`novelty sparkling candle`,
+        //   $item`runed taper candle`,
+        //   $item`oversized sparkler`,
+        //   $item`none`,
+        // ],
+        offhand: $item`unbreakable umbrella`,
+        // acc1: $item`Combat Lover's Locket, Guzzlr tablet`,
+        // acc2: $item`red-soled high heels`,
+        // acc3: $item`Cincho de Mayo`,
+        famequip: $item`li'l ninja costume`,
+        familiar: $familiar`Trick-or-Treating Tot`,
+        modes: { umbrella: "bucket style" },
         modifier:
-          "1 Item Drop, 2 Booze Drop, -equip broken champagne bottle, switch vampire vintner, switch disembodied hand, -switch left-hand man",
+          "Item Drop, Booze Drop, -equip broken champagne bottle, switch trick-or-treating tot, -switch disembodied hand, -switch left-hand man",
       },
       limit: { tries: 1 },
     },
