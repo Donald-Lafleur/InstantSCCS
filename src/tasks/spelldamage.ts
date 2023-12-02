@@ -205,6 +205,7 @@ export const SpellDamageQuest: Quest = {
           $effect`Jackasses' Symphony of Destruction`,
           $effect`Mental A-cue-ity`,
           $effect`Pisces in the Skyces`,
+          $effect`Sigils of Yeg`,
           $effect`Song of Sauce`,
           $effect`Spirit of Peppermint`,
           $effect`The Magic of LOV`,
@@ -219,9 +220,12 @@ export const SpellDamageQuest: Quest = {
 
         // is a wish more powerful than a pull?
         const wishableEffects: Effect[] = [
-          $effect`Sigils of Yeg`,
           $effect`Witch Breaded`,
           $effect`Sparkly!`,
+          $effect`Pyramid Power`,
+          $effect`Nigh-Invincible`,
+          $effect`Spit Upon`,
+          $effect`Medieval Mage Mayhem`,
         ];
         wishForEffects(wishableEffects, CommunityService.SpellDamage);
 
