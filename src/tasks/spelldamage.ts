@@ -1,13 +1,16 @@
 import { CombatStrategy } from "grimoire-kolmafia";
 import {
   buy,
+  cliExecute,
   drink,
   Effect,
   elementalResistance,
   equip,
   equippedItem,
+  familiarEquippedEquipment,
   inebrietyLimit,
   myAdventures,
+  myFamiliar,
   myHp,
   myInebriety,
   myMaxhp,
@@ -16,8 +19,8 @@ import {
   restoreHp,
   restoreMp,
   retrieveItem,
+  use,
   useSkill,
-  visitUrl,
 } from "kolmafia";
 import {
   $effect,
@@ -42,7 +45,7 @@ import {
   motherSlimeClan,
   startingClan,
   tryAcquiringEffect,
-  wishFor,
+  wishForEffects,
 } from "../lib";
 import Macro, { haveFreeBanish, haveMotherSlimeBanish } from "../combat";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
@@ -54,13 +57,6 @@ export const SpellDamageQuest: Quest = {
   name: "Spell Damage",
   completed: () => CommunityService.SpellDamage.isDone(),
   tasks: [
-    {
-      name: "Simmer",
-      completed: () =>
-        have($effect`Simmering`) || !have($skill`Simmer`) || get("instant_skipSimmer", false),
-      do: () => useSkill($skill`Simmer`),
-      limit: { tries: 1 },
-    },
     {
       name: "Carol Ghost Buff",
       prepare: (): void => {
@@ -135,18 +131,6 @@ export const SpellDamageQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Cargo Shorts",
-      completed: () =>
-        get("_cargoPocketEmptied") ||
-        !have($item`Cargo Cultist Shorts`) ||
-        get("instant_saveCargoShortsSpell", false),
-      do: (): void => {
-        visitUrl("inventory.php?action=pocket");
-        visitUrl("choice.php?whichchoice=1420&option=1&pocket=177");
-      },
-      limit: { tries: 1 },
-    },
-    {
       name: "Deep Dark Visions",
       completed: () =>
         have($effect`Visions of the Deep Dark Deeps`) ||
@@ -167,18 +151,45 @@ export const SpellDamageQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Cargo Shorts Soap",
+      completed: () =>
+        forbiddenEffects.includes($effect`Sigils of Yeg`) ||
+        have($effect`Sigils of Yeg`) ||
+        have($item`Yeg's Motel Hand Soap`) ||
+        get("_cargoPocketEmptied") ||
+        !have($item`Cargo Cultist Shorts`),
+      do: (): void => {
+        cliExecute("cargo pick 177");
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Wizard's Snack Counter",
+      completed: () =>
+        forbiddenEffects.includes($effect`Pisces in the Skyces`) ||
+        have($item`tobiko marble soda`) ||
+        !have($item`Ye Wizard's Shack snack voucher`), // ||
+      // get("instant_spellTestPulls").split(",").some((i) => i === String($item`tobiko marble soda`.id)),
+      do: (): void => {
+        retrieveItem($item`tobiko marble soda`);
+      },
+      limit: { tries: 1 },
+    },
+    {
+      name: "Simmer",
+      completed: () =>
+        have($effect`Simmering`) || !have($skill`Simmer`) || get("instant_skipSimmer", false),
+      do: () => useSkill($skill`Simmer`),
+      limit: { tries: 1 },
+    },
+    {
       name: "Test",
       prepare: (): void => {
         if (!have($item`obsidian nutcracker`)) buy($item`obsidian nutcracker`, 1);
-        if (
-          have($item`Ye Wizard's Shack snack voucher`) &&
-          !forbiddenEffects.includes($effect`Pisces in the Skyces`)
-        )
-          retrieveItem($item`tobiko marble soda`);
+
         const usefulEffects: Effect[] = [
           $effect`AAA-Charged`,
           $effect`Arched Eyebrow of the Archmage`,
-          // $effect`Bendin' Hell`, only effects elemental spell damage which test ignores
           $effect`Carol of the Hells`,
           $effect`Cowrruption`,
           $effect`Destructive Resolve`,
@@ -186,7 +197,6 @@ export const SpellDamageQuest: Quest = {
           $effect`Jackasses' Symphony of Destruction`,
           $effect`Mental A-cue-ity`,
           $effect`Pisces in the Skyces`,
-          $effect`Sigils of Yeg`,
           $effect`Song of Sauce`,
           $effect`Spirit of Peppermint`,
           $effect`The Magic of LOV`,
@@ -195,10 +205,41 @@ export const SpellDamageQuest: Quest = {
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
 
-        get("instant_spellTestPulls").split(",").forEach(handleCustomPull);
+        if (CommunityService.SpellDamage.actualCost() > 1) {
+          get("instant_spellTestPulls").split(",").forEach(handleCustomPull);
+        }
 
-        const wishableEffects: Effect[] = [$effect`Witch Breaded`, $effect`Sparkly!`];
-        wishableEffects.forEach((ef) => wishFor(ef, true));
+        // is a wish more powerful than a pull?
+        const wishableEffects: Effect[] = [
+          $effect`Sigils of Yeg`,
+          $effect`Witch Breaded`,
+          $effect`Sparkly!`,
+        ];
+        wishForEffects(wishableEffects, CommunityService.SpellDamage);
+
+        if (
+          have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
+          !get("instant_saveAugustScepter", false) &&
+          CommunityService.SpellDamage.actualCost() > 1
+        ) {
+          let curSpDamPct = numericModifier("Spell damage percent");
+          let curSpDam = numericModifier("Spell damage");
+          let newSpDamPct =
+            curSpDamPct + numericModifier(equippedItem($slot`off-hand`), "Spell Damage Percent");
+          let newSpDam = curSpDam + numericModifier(equippedItem($slot`off-hand`), "Spell Damage");
+          if (myFamiliar() === $familiar`Left-Hand Man`) {
+            newSpDamPct += numericModifier(
+              familiarEquippedEquipment(myFamiliar()),
+              "Spell Damage Percent"
+            );
+            newSpDam += numericModifier(familiarEquippedEquipment(myFamiliar()), "Spell Damage");
+          }
+          if (
+            Math.floor(newSpDamPct / 50) > Math.floor(curSpDamPct / 50) ||
+            Math.floor(newSpDam / 50) > Math.floor(curSpDam / 50)
+          )
+            tryAcquiringEffect($effect`Offhand Remarkable`);
+        }
 
         const wines = $items`Sacramento wine, distilled fortified wine`;
         while (
@@ -208,17 +249,6 @@ export const SpellDamageQuest: Quest = {
         ) {
           tryAcquiringEffect($effect`Ode to Booze`);
           drink(wines.filter((booze) => have(booze))[0], 1);
-        }
-
-        if (
-          have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
-          !get("instant_saveAugustScepter", false) &&
-          numericModifier(equippedItem($slot`off-hand`), "Spell Damage") +
-            numericModifier(equippedItem($slot`off-hand`), "Spell Damage Percent") >
-            0 &&
-          CommunityService.SpellDamage.actualCost() > 1
-        ) {
-          tryAcquiringEffect($effect`Offhand Remarkable`);
         }
       },
       completed: () => CommunityService.SpellDamage.isDone(),
@@ -239,7 +269,7 @@ export const SpellDamageQuest: Quest = {
           maxTurns
         );
       },
-      outfit: { modifier: "spell dmg, switch disembodied hand, -switch left-hand man" },
+      outfit: { modifier: "spell dmg, switch disembodied hand, switch left-hand man" },
       post: (): void => {
         if (have($skill`Spirit of Nothing`)) useSkill($skill`Spirit of Nothing`);
         if (have($familiar`Left-Hand Man`)) equip($familiar`Left-Hand Man`, $item.none);

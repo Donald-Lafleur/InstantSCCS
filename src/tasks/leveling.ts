@@ -438,7 +438,7 @@ export const LevelingQuest: Quest = {
           print("Uh oh! You do not seem to have a Pizza of Legend in Hagnk's", "red");
           print("Consider pulling something to make up for the turngen and 300%mox,", "red");
           print(
-            "then type 'set _instant_skipPizzaOfLegend=true' before re-running instantsccs",
+            "then type 'set instant_skipPizzaOfLegend=true' before re-running instantsccs",
             "red"
           );
         }

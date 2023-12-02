@@ -4,9 +4,11 @@ import {
   create,
   Effect,
   equippedItem,
+  familiarEquippedEquipment,
   inebrietyLimit,
   myHash,
   myInebriety,
+  myFamiliar,
   myMaxhp,
   myMeat,
   numericModifier,
@@ -16,6 +18,7 @@ import {
   retrieveItem,
   useSkill,
   visitUrl,
+  cliExecute,
 } from "kolmafia";
 import {
   $effect,
@@ -41,7 +44,7 @@ import {
   motherSlimeClan,
   startingClan,
   tryAcquiringEffect,
-  wishFor,
+  wishForEffects,
 } from "../lib";
 import { powerlevelingLocation } from "./leveling";
 import { forbiddenEffects } from "../resources";
@@ -81,8 +84,7 @@ export const WeaponDamageQuest: Quest = {
         !have($item`Cargo Cultist Shorts`) ||
         get("instant_saveCargoShortsWeapon", false),
       do: (): void => {
-        visitUrl("inventory.php?action=pocket");
-        visitUrl("choice.php?whichchoice=1420&option=1&pocket=284");
+        cliExecute("cargo pick 284");
       },
       limit: { tries: 1 },
     },
@@ -230,28 +232,37 @@ export const WeaponDamageQuest: Quest = {
         get("instant_weaponTestPulls").split(",").forEach(handleCustomPull);
 
         const wishableEffects: Effect[] = [
+          $effect`Outer Wolf`,
           $effect`Pyramid Power`,
           $effect`Nigh-Invincible`,
+          $effect`Spit Upon`,
           $effect`Medieval Mage Mayhem`,
         ];
-        wishableEffects.forEach((ef) => wishFor(ef, true));
+        wishForEffects(wishableEffects, CommunityService.WeaponDamage);
 
         if (
           have($skill`Aug. 13th: Left/Off Hander's Day!`) &&
           !get("instant_saveAugustScepter", false) &&
-          numericModifier(equippedItem($slot`off-hand`), "Weapon Damage") +
-            numericModifier(equippedItem($slot`off-hand`), "Weapon Damage Percent") >
-            0 &&
           CommunityService.WeaponDamage.actualCost() > 1
         ) {
-          tryAcquiringEffect($effect`Offhand Remarkable`);
+          let curSpDamPct = numericModifier("Weapon Damage Percent");
+          let curSpDam = numericModifier("Weapon Damage");
+          let newSpDamPct =
+            curSpDamPct + numericModifier(equippedItem($slot`off-hand`), "Weapon Damage Percent");
+          let newSpDam = curSpDam + numericModifier(equippedItem($slot`off-hand`), "Weapon Damage");
+          if (myFamiliar() === $familiar`Left-Hand Man`) {
+            curSpDamPct += numericModifier(
+              familiarEquippedEquipment(myFamiliar()),
+              "Weapon Damage Percent"
+            );
+            curSpDam += numericModifier(familiarEquippedEquipment(myFamiliar()), "Weapon Damage");
+          }
+          if (
+            Math.floor(newSpDamPct / 50) > Math.floor(curSpDamPct / 50) ||
+            Math.floor(newSpDam / 50) > Math.floor(curSpDam / 50)
+          )
+            tryAcquiringEffect($effect`Offhand Remarkable`);
         }
-
-        // If it saves us >= 6 turns, try using a wish
-        if (CommunityService.WeaponDamage.actualCost() >= 7) wishFor($effect`Outer Wolf™`);
-        $effects`Spit Upon, Pyramid Power`.forEach((ef) => {
-          if (CommunityService.WeaponDamage.actualCost() >= 5) wishFor(ef); // The effects each save 2 turns on spelltest as well
-        });
       },
       completed: () => CommunityService.WeaponDamage.isDone(),
       do: (): void => {

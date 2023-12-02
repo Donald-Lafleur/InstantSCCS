@@ -1,19 +1,24 @@
 import {
+  canEquip,
   chew,
   cliExecute,
   drink,
   eat,
+  effectModifier,
   Effect,
   equip,
   equippedItem,
   getCampground,
   getClanName,
+  getPermedSkills,
   gitInfo,
   haveEffect,
   haveEquipped,
+  haveSkill,
   holiday,
   Item,
   itemAmount,
+  Modifier,
   monkeyPaw,
   mpCost,
   myBasestat,
@@ -23,17 +28,20 @@ import {
   myMaxhp,
   myMp,
   myPrimestat,
+  numericModifier,
   print,
   restoreMp,
   retrieveItem,
   retrievePrice,
   Skill,
+  Slot,
   storageAmount,
   sweetSynthesis,
   takeStorage,
   toInt,
   toItem,
   toSkill,
+  toSlot,
   toStat,
   use,
   useSkill,
@@ -45,6 +53,7 @@ import {
   $familiar,
   $item,
   $items,
+  $modifier,
   $monster,
   $skill,
   $skills,
@@ -54,6 +63,7 @@ import {
   CombatLoversLocket,
   CommunityService,
   get,
+  getActiveEffects,
   getKramcoWandererChance,
   have,
   haveInCampground,
@@ -267,8 +277,7 @@ export function handleCustomPull(pullStr: string): void {
   // Pull a given item and use it if we can
   // Note: We should be running this in prepare(), which occurs after equipping
   // If the user wants to pull equips, they should pre-pull them
-  const pullID = toInt(pullStr);
-  const it = toItem(pullID);
+  let it = toItem(toInt(pullStr));
 
   if (!have(it)) {
     if (
@@ -318,6 +327,31 @@ export function wishFor(ef: Effect, useGenie = true): void {
   if (have($item`pocket wish`) && !get("instant_saveGenie", false) && useGenie) {
     cliExecute(`genie effect ${ef.name}`);
   }
+}
+
+export function wishForEffects(efs: Effect[], test: CommunityService): void {
+  if (
+    get("instant_saveGenie", false) &&
+    (get("instant_saveMonkeysPaw") || get("_monkeyPawWishesUsed", 5) == 5)
+  )
+    return;
+
+  // There are some issues measuring turn value using only one test, especially for some
+  // or the combined weapon damage + spell damage effects that can be wished.
+  let wishMin = get("instant_minWishTurnSave", 2);
+  efs
+    .filter((ef) => test.turnsSavedBy(ef) > wishMin && !forbiddenEffects.includes(ef))
+    .forEach((ef) => {
+      // Only wish until the test is maxxed
+      if (test.prediction <= 1 && test.actualCost() == 1) return;
+      wishFor(ef, true);
+    });
+}
+
+export function parseItemIdListPref(pref: string): Item[] {
+  return get(pref, "")
+    .split(",")
+    .map((id) => toItem(id));
 }
 
 export function overlevelled(): boolean {
