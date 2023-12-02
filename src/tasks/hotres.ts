@@ -47,10 +47,12 @@ export const HotResQuest: Quest = {
       do: () => CombatLoversLocket.reminisce($monster`factory worker (female)`),
       outfit: () => ({
         back: $item`vampyric cloake`,
+        shirt: $item`Jurassic Parka`,
         weapon: $item`Fourth of May Cosplay Saber`,
         offhand: have($skill`Double-Fisted Skull Smashing`)
           ? $item`industrial fire extinguisher`
           : undefined,
+        modes: { parka: "dilophosaur" },
         familiar: chooseFamiliar(false),
         modifier: "Item Drop",
         avoid: sugarItemsAboutToBreak(),
@@ -59,6 +61,7 @@ export const HotResQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Become a Cloud of Mist`)
           .trySkill($skill`Fire Extinguisher: Foam Yourself`)
+          .trySkill($skill`Spit jurassic acid`)
           .trySkill($skill`Use the Force`)
           .trySkill($skill`Shocking Lick`)
           .tryItem($item`yellow rocket`)
@@ -139,15 +142,6 @@ export const HotResQuest: Quest = {
     {
       name: "Test",
       prepare: (): void => {
-        cliExecute("retrocape vampire hold");
-        if (get("parkaMode") !== "pterodactyl") cliExecute("parka pterodactyl");
-        if (
-          get("_kgbClicksUsed") < 22 &&
-          have($item`Kremlin's Greatest Briefcase`) &&
-          !get("instant_saveKGBClicks", false)
-        )
-          cliExecute("Briefcase e hot");
-
         const usefulEffects: Effect[] = [
           $effect`Amazing`,
           $effect`Astral Shell`,
@@ -161,9 +155,12 @@ export const HotResQuest: Quest = {
           $effect`Blood Bond`,
           $effect`Empathy`,
           $effect`Leash of Linguini`,
-          $effect`Robot Friends`,
         ];
-        usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
+        usefulEffects.forEach((ef) => {
+          tryAcquiringEffect(ef, true);
+          if (CommunityService.HotRes.prediction <= 1 && CommunityService.HotRes.actualCost() === 1)
+            return;
+        });
         get("instant_hotTestPulls").split(",").forEach(handleCustomPull);
         cliExecute("maximize hot res");
 
@@ -198,6 +195,7 @@ export const HotResQuest: Quest = {
         CommunityService.HotRes.run(() => logTestSetup(CommunityService.HotRes), maxTurns);
       },
       outfit: {
+        modes: { retrocape: ["vampire", "hold"], parka: "pterodactyl" },
         modifier: "hot res",
         familiar: $familiar`Exotic Parrot`,
       },
