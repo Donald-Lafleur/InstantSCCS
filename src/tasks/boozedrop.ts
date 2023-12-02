@@ -53,7 +53,7 @@ import {
   setConfiguration,
   Station,
 } from "libram/dist/resources/2022/TrainSet";
-import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor, wishForEffects } from "../lib";
+import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishForEffects } from "../lib";
 import { chooseFamiliar, sugarItemsAboutToBreak } from "../engine/outfit";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro, { haveFreeBanish } from "../combat";

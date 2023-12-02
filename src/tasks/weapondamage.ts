@@ -232,7 +232,7 @@ export const WeaponDamageQuest: Quest = {
         get("instant_weaponTestPulls").split(",").forEach(handleCustomPull);
 
         const wishableEffects: Effect[] = [
-          $effect`Outer Wolf`,
+          $effect`Outer Wolf™`,
           $effect`Pyramid Power`,
           $effect`Nigh-Invincible`,
           $effect`Spit Upon`,
