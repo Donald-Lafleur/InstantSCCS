@@ -367,7 +367,7 @@ export const BoozeDropQuest: Quest = {
         get("instant_boozeTestPulls").split(",").forEach(handleCustomPull);
 
         // If it saves us >= 6 turns, try using a wish
-        wishForEffects([$effect`Infernal Thirst`], CommunityService.BoozeDrop)
+        wishForEffects([$effect`Infernal Thirst`], CommunityService.BoozeDrop);
       },
       completed: () => CommunityService.BoozeDrop.isDone(),
       do: (): void => {
