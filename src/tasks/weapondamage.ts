@@ -1,6 +1,7 @@
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   buy,
+  eat,
   cliExecute,
   create,
   Effect,
@@ -231,12 +232,16 @@ export const WeaponDamageQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         get("instant_weaponTestPulls").split(",").forEach(handleCustomPull);
 
+        if (CommunityService.WeaponDamage.actualCost() > 1 && have($item`glass of raw eggs`)) {
+          eat($item`glass of raw eggs`);
+        }
+
         const wishableEffects: Effect[] = [
-          $effect`Outer Wolf™`,
           $effect`Pyramid Power`,
           $effect`Nigh-Invincible`,
-          $effect`Spit Upon`,
+          $effect`Outer Wolf™`,
           $effect`Medieval Mage Mayhem`,
+          $effect`Spit Upon`,
         ];
         wishForEffects(wishableEffects, CommunityService.WeaponDamage);
 
