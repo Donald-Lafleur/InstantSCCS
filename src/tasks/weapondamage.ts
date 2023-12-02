@@ -1,14 +1,15 @@
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   buy,
+  cliExecute,
   create,
   Effect,
   equippedItem,
   familiarEquippedEquipment,
   inebrietyLimit,
+  myFamiliar,
   myHash,
   myInebriety,
-  myFamiliar,
   myMaxhp,
   myMeat,
   numericModifier,
@@ -18,7 +19,6 @@ import {
   retrieveItem,
   useSkill,
   visitUrl,
-  cliExecute,
 } from "kolmafia";
 import {
   $effect,
@@ -261,7 +261,11 @@ export const WeaponDamageQuest: Quest = {
             Math.floor(newSpDamPct / 50) > Math.floor(curSpDamPct / 50) ||
             Math.floor(newSpDam / 50) > Math.floor(curSpDam / 50)
           )
-            tryAcquiringEffect($effect`Offhand Remarkable`);
+            if (
+              Math.floor(newSpDamPct / 50) > Math.floor(curSpDamPct / 50) ||
+              Math.floor(newSpDam / 50) > Math.floor(curSpDam / 50)
+            )
+              tryAcquiringEffect($effect`Offhand Remarkable`);
         }
       },
       completed: () => CommunityService.WeaponDamage.isDone(),

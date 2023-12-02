@@ -19,7 +19,6 @@ import {
   restoreHp,
   restoreMp,
   retrieveItem,
-  use,
   useSkill,
 } from "kolmafia";
 import {
@@ -222,12 +221,17 @@ export const SpellDamageQuest: Quest = {
           !get("instant_saveAugustScepter", false) &&
           CommunityService.SpellDamage.actualCost() > 1
         ) {
-          let curSpDamPct = numericModifier("Spell damage percent");
-          let curSpDam = numericModifier("Spell damage");
+          const curSpDamPct = numericModifier("Spell damage percent");
+          const curSpDam = numericModifier("Spell damage");
           let newSpDamPct =
             curSpDamPct + numericModifier(equippedItem($slot`off-hand`), "Spell Damage Percent");
           let newSpDam = curSpDam + numericModifier(equippedItem($slot`off-hand`), "Spell Damage");
           if (myFamiliar() === $familiar`Left-Hand Man`) {
+            newSpDamPct += numericModifier(
+              familiarEquippedEquipment(myFamiliar()),
+              "Spell Damage Percent"
+            );
+            newSpDam += numericModifier(familiarEquippedEquipment(myFamiliar()), "Spell Damage");
             newSpDamPct += numericModifier(
               familiarEquippedEquipment(myFamiliar()),
               "Spell Damage Percent"

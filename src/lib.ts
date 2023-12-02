@@ -4,8 +4,8 @@ import {
   cliExecute,
   drink,
   eat,
-  effectModifier,
   Effect,
+  effectModifier,
   equip,
   equippedItem,
   getCampground,
@@ -332,18 +332,18 @@ export function wishFor(ef: Effect, useGenie = true): void {
 export function wishForEffects(efs: Effect[], test: CommunityService): void {
   if (
     get("instant_saveGenie", false) &&
-    (get("instant_saveMonkeysPaw") || get("_monkeyPawWishesUsed", 5) == 5)
+    (get("instant_saveMonkeysPaw") || get("_monkeyPawWishesUsed", 5) === 5)
   )
     return;
 
   // There are some issues measuring turn value using only one test, especially for some
   // or the combined weapon damage + spell damage effects that can be wished.
-  let wishMin = get("instant_minWishTurnSave", 2);
+  const wishMin = get("instant_minWishTurnSave", 2);
   efs
     .filter((ef) => test.turnsSavedBy(ef) > wishMin && !forbiddenEffects.includes(ef))
     .forEach((ef) => {
       // Only wish until the test is maxxed
-      if (test.prediction <= 1 && test.actualCost() == 1) return;
+      if (test.prediction <= 1 && test.actualCost() === 1) return;
       wishFor(ef, true);
     });
 }
