@@ -8994,13 +8994,13 @@ function wishFor(ef) {
   }
 }
 function wishForEffects(efs, test) {
-  if (property_get("instant_saveGenie", false) && (property_get("instant_saveMonkeysPaw") || property_get("_monkeyPawWishesUsed", 5) == 5)) return; // There are some issues measuring turn value using only one test, especially for some
+  if (property_get("instant_saveGenie", false) && (property_get("instant_saveMonkeysPaw") || property_get("_monkeyPawWishesUsed", 5) === 5)) return; // There are some issues measuring turn value using only one test, especially for some
   // or the combined weapon damage + spell damage effects that can be wished.
 
   var wishMin = property_get("instant_minWishTurnSave", 2);
   efs.filter(ef => test.turnsSavedBy(ef) > wishMin && !forbiddenEffects.includes(ef)).forEach(ef => {
     // Only wish until the test is maxxed
-    if (test.prediction <= 1 && test.actualCost() == 1) return;
+    if (test.prediction <= 1 && test.actualCost() === 1) return;
     wishFor(ef, true);
   });
 }
@@ -18683,8 +18683,8 @@ var WeaponDamageQuest = {
         var newSpDam = curSpDam + (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(weapondamage_templateObject77 || (weapondamage_templateObject77 = weapondamage_taggedTemplateLiteral(["off-hand"])))), "Weapon Damage");
 
         if ((0,external_kolmafia_namespaceObject.myFamiliar)() === template_string_$familiar(weapondamage_templateObject78 || (weapondamage_templateObject78 = weapondamage_taggedTemplateLiteral(["Left-Hand Man"])))) {
-          curSpDamPct += (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.familiarEquippedEquipment)((0,external_kolmafia_namespaceObject.myFamiliar)()), "Weapon Damage Percent");
-          curSpDam += (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.familiarEquippedEquipment)((0,external_kolmafia_namespaceObject.myFamiliar)()), "Weapon Damage");
+          newSpDamPct += (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.familiarEquippedEquipment)((0,external_kolmafia_namespaceObject.myFamiliar)()), "Weapon Damage Percent");
+          newSpDam += (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.familiarEquippedEquipment)((0,external_kolmafia_namespaceObject.myFamiliar)()), "Weapon Damage");
         }
 
         if (Math.floor(newSpDamPct / 50) > Math.floor(curSpDamPct / 50) || Math.floor(newSpDam / 50) > Math.floor(curSpDam / 50)) tryAcquiringEffect(template_string_$effect(weapondamage_templateObject79 || (weapondamage_templateObject79 = weapondamage_taggedTemplateLiteral(["Offhand Remarkable"]))));
