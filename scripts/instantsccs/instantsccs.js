@@ -18978,7 +18978,7 @@ var SpellDamageQuest = {
     }
   }, {
     name: "Briefcase Spell Buff",
-    completed: () => !lib_have(template_string_$item(spelldamage_templateObject43 || (spelldamage_templateObject43 = spelldamage_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"])))) || (0,external_kolmafia_namespaceObject.numericModifier)(template_string_$item(spelldamage_templateObject44 || (spelldamage_templateObject44 = spelldamage_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))), "Spell Damage Percent") != 0 || property_get("_kgbClicksUsed") >= 22,
+    completed: () => !lib_have(template_string_$item(spelldamage_templateObject43 || (spelldamage_templateObject43 = spelldamage_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"])))) || (0,external_kolmafia_namespaceObject.numericModifier)(template_string_$item(spelldamage_templateObject44 || (spelldamage_templateObject44 = spelldamage_taggedTemplateLiteral(["Kremlin's Greatest Briefcase"]))), "Spell Damage Percent") !== 0 || property_get("_kgbClicksUsed") >= 22,
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("Briefcase e spell"),
     limit: {
       tries: 1
