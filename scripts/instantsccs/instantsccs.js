@@ -8923,7 +8923,7 @@ function canAcquireEffect(ef) {
         return property_get("spacegateAlways") && !property_get("_spacegateVaccine");
 
       case "pillkeeper":
-        return lib_have(template_string_$item(lib_templateObject17 || (lib_templateObject17 = lib_taggedTemplateLiteral(["Eight Days a Week Pill Keeper"]))));
+        return lib_have(template_string_$item(lib_templateObject17 || (lib_templateObject17 = lib_taggedTemplateLiteral(["Eight Days a Week Pill Keeper"])))) && !property_get("instant_savePillkeeper", false);
 
       case "pool":
         return property_get("_poolGames") < 3;
