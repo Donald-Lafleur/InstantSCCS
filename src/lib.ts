@@ -240,7 +240,9 @@ export function canAcquireEffect(ef: Effect): boolean {
         case "spacegate":
           return get("spacegateAlways") && !get("_spacegateVaccine");
         case "pillkeeper":
-          return have($item`Eight Days a Week Pill Keeper`);
+          return (
+            have($item`Eight Days a Week Pill Keeper`) && !get("instant_savePillkeeper", false)
+          );
         case "pool":
           return get("_poolGames") < 3;
         case "swim":
