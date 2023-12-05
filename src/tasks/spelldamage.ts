@@ -185,7 +185,7 @@ export const SpellDamageQuest: Quest = {
       name: "Briefcase Spell Buff",
       completed: () =>
         !have($item`Kremlin's Greatest Briefcase`) ||
-        numericModifier($item`Kremlin's Greatest Briefcase`, "Spell Damage Percent") != 0 ||
+        numericModifier($item`Kremlin's Greatest Briefcase`, "Spell Damage Percent") !== 0 ||
         get("_kgbClicksUsed") >= 22,
       do: () => cliExecute("Briefcase e spell"),
       limit: { tries: 1 },

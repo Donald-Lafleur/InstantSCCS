@@ -1,26 +1,6 @@
 import { Quest } from "../engine/task";
-import {
-  buy,
-  cliExecute,
-  Effect,
-  equippedItem,
-  numericModifier,
-  print,
-  runChoice,
-  useSkill,
-  visitUrl,
-} from "kolmafia";
-import {
-  $effect,
-  $familiar,
-  $item,
-  $skill,
-  $slot,
-  CommunityService,
-  get,
-  have,
-  uneffect,
-} from "libram";
+import { buy, cliExecute, Effect, print, runChoice, useSkill, visitUrl } from "kolmafia";
+import { $effect, $familiar, $item, $skill, CommunityService, get, have, uneffect } from "libram";
 import { handleCustomPull, logTestSetup, tryAcquiringEffect, wishFor } from "../lib";
 import { CombatStrategy } from "grimoire-kolmafia";
 import Macro from "../combat";

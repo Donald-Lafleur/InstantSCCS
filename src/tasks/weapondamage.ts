@@ -1,9 +1,9 @@
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   buy,
-  eat,
   cliExecute,
   create,
+  eat,
   Effect,
   equippedItem,
   familiarEquippedEquipment,
