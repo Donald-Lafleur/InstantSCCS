@@ -385,13 +385,13 @@ export const LevelingQuest: Quest = {
         get("_roninStoragePulls")
           .split(",")
           .includes(toInt($item`Deep Dish of Legend`).toString()) ||
-        get("_instant_skipDeepDishOfLegend", false),
+        get("instant_skipDeepDishOfLegend", false),
       do: (): void => {
         if (storageAmount($item`Deep Dish of Legend`) === 0) {
           print("Uh oh! You do not seem to have a Deep Dish of Legend in Hagnk's", "red");
           print("Consider pulling something to make up for the turngen and 300%mus,", "red");
           print(
-            "then type 'set _instant_skipDeepDishOfLegend=true' before re-running instantsccs",
+            "then type 'set instant_skipDeepDishOfLegend=true' before re-running instantsccs",
             "red"
           );
         }
@@ -407,7 +407,7 @@ export const LevelingQuest: Quest = {
         get("_roninStoragePulls")
           .split(",")
           .includes(toInt($item`Calzone of Legend`).toString()) ||
-        get("_instant_skipCalzoneOfLegend", false),
+        get("instant_skipCalzoneOfLegend", false),
       do: (): void => {
         if (storageAmount($item`Calzone of Legend`) === 0) {
           print("Uh oh! You do not seem to have a Calzone of Legend in Hagnk's", "red");
@@ -416,7 +416,7 @@ export const LevelingQuest: Quest = {
             "red"
           );
           print(
-            "then type 'set _instant_skipCalzoneOfLegend=true' before re-running instantsccs",
+            "then type 'set instant_skipCalzoneOfLegend=true' before re-running instantsccs",
             "red"
           );
         }
