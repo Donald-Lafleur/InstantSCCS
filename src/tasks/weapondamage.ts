@@ -259,8 +259,8 @@ export const WeaponDamageQuest: Quest = {
           !get("instant_saveAugustScepter", false) &&
           CommunityService.WeaponDamage.actualCost() > 1
         ) {
-          let curSpDamPct = numericModifier("Weapon Damage Percent");
-          let curSpDam = numericModifier("Weapon Damage");
+          const curSpDamPct = numericModifier("Weapon Damage Percent");
+          const curSpDam = numericModifier("Weapon Damage");
           let newSpDamPct =
             curSpDamPct + numericModifier(equippedItem($slot`off-hand`), "Weapon Damage Percent");
           let newSpDam = curSpDam + numericModifier(equippedItem($slot`off-hand`), "Weapon Damage");
