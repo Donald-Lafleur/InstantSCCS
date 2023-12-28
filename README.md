@@ -1,14 +1,18 @@
 # InstantSCCS
 
-`InstantSCCS` is a softcore one-day Community Service script meant for looping in Kingdom of Loathing, and designed to work for low-to-mid-shiny accounts (i.e. accounts with minimal expensive items/skills). The user is expected to have a bunch of softcore-permed skills, and at least ~7 IotMs in order to enable this (one of which is the [Clan VIP Lounge key](https://kol.coldfront.net/thekolwiki/index.php/Clan_VIP_Lounge_key)).
+This is my personal fork of InstantSCCS designed to either loop 1/70 ascensions during events, or go as fast as possible without using valuable resources like copiers and limited buffs. It works for me, and might work for you if you have [everything I have](https://api.aventuristo.net/av-snapshot?u=MontyPythn#a4).
 
 ## Installation
 
 To install the script, use the following command in the KoLMafia CLI.
 
 ```text
-git checkout https://github.com/Pantocyclus/instantsccs.git release
+git checkout https://github.com/Donald-Lafleur/instantsccs.git release
 ```
+
+## Caveat
+
+I'm leaving everything below, as it still largely reflects what the script would do if you don't also have my custom set of original InstantSCCS preferences as well as additional preferences.
 
 ## Usage
 
