@@ -232,7 +232,11 @@ export const WeaponDamageQuest: Quest = {
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
         get("instant_weaponTestPulls").split(",").forEach(handleCustomPull);
 
-        if (CommunityService.WeaponDamage.actualCost() > 1 && have($item`glass of raw eggs`)) {
+        if (
+          CommunityService.WeaponDamage.actualCost() > 1 &&
+          have($item`glass of raw eggs`) &&
+          !get("instant_saveGlassOfRawEggs", false)
+        ) {
           eat($item`glass of raw eggs`);
         }
 
