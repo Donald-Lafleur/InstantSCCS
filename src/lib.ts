@@ -587,6 +587,7 @@ export function computeCombatFrequency(): number {
   const rose = -20;
   const smoothMovements = have($skill`Smooth Movement`) ? -5 : 0;
   const sonata = have($skill`The Sonata of Sneakiness`) ? -5 : 0;
+  const lonely = have($skill`Feel Lonely`) ? -5 : 0;
   const favoriteBird =
     have($item`Bird-a-Day calendar`) &&
     get("yourFavoriteBirdMods").includes("Combat Frequency") &&
@@ -609,6 +610,7 @@ export function computeCombatFrequency(): number {
     rose,
     smoothMovements,
     sonata,
+    lonely,
     favoriteBird,
     shadowWaters,
     powerfulGlove,
