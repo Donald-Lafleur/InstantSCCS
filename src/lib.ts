@@ -4,7 +4,6 @@ import {
   drink,
   eat,
   Effect,
-  effectModifier,
   equip,
   equippedItem,
   getCampground,
@@ -270,7 +269,7 @@ export function handleCustomPull(pullStr: string): void {
   // Pull a given item and use it if we can
   // Note: We should be running this in prepare(), which occurs after equipping
   // If the user wants to pull equips, they should pre-pull them
-  let it = toItem(toInt(pullStr));
+  const it = toItem(toInt(pullStr));
 
   if (!have(it)) {
     if (
