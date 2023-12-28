@@ -60,7 +60,7 @@ export const WeaponDamageQuest: Quest = {
       name: "Drink Sockdollager",
       completed: () =>
         have($effect`In a Lather`) ||
-        myInebriety() >= inebrietyLimit() - 1 ||
+        inebrietyLimit() - myInebriety() >= 2 ||
         myMeat() < 500 ||
         get("instant_saveSockdollager", false),
       do: (): void => {
@@ -85,7 +85,7 @@ export const WeaponDamageQuest: Quest = {
         !have($item`Cargo Cultist Shorts`) ||
         get("instant_saveCargoShortsWeapon", false),
       do: (): void => {
-        cliExecute("cargo pick 284");
+        cliExecute("cargo pick 284"); // Yeg's Motel tooth brush
       },
       limit: { tries: 1 },
     },
@@ -144,11 +144,8 @@ export const WeaponDamageQuest: Quest = {
       name: "Glob of Melted Wax",
       completed: () => !have($item`glob of melted wax`) || have($item`wax hand`),
       do: (): void => {
-        // create(1, $item`wax hand`);
-        // visitUrl("main.php");
-        visitUrl(`inv_use.php?pwd=${+myHash()}&which=3&whichitem=9310`);
-        visitUrl(`choice.php?pwd&whichchoice=1218&option=2`);
-        visitUrl(`choice.php?pwd&whichchoice=1218&option=6`);
+        create(1, $item`wax hand`);
+        visitUrl("main.php");
       },
       limit: { tries: 1 },
     },
@@ -195,30 +192,38 @@ export const WeaponDamageQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Wizard's Snack Counter",
+      completed: () =>
+        forbiddenEffects.includes($effect`Wasabi With You`) ||
+        have($item`wasabi marble soda`) ||
+        !have($item`Ye Wizard's Shack snack voucher`), // ||
+      // get("instant_spellTestPulls").split(",").some((i) => i === String($item`tobiko marble soda`.id)),
+      do: (): void => {
+        retrieveItem($item`wasabi marble soda`);
+      },
+      limit: { tries: 1 },
+    },
+    {
       name: "Test",
       prepare: (): void => {
         if (have($item`SongBoom™ BoomBox`)) SongBoom.setSong("These Fists Were Made for Punchin'");
         if (!have($item`goofily-plumed helmet`)) buy($item`goofily-plumed helmet`, 1);
-        if (
-          have($item`Ye Wizard's Shack snack voucher`) &&
-          !forbiddenEffects.includes($effect`Wasabi With You`)
-        )
-          retrieveItem($item`wasabi marble soda`);
         const usefulEffects: Effect[] = [
           $effect`Barrel Chested`,
           $effect`Billiards Belligerence`,
+          // $effect`Blessing of your favorite Bird`,
           $effect`Bow-Legged Swagger`,
           $effect`Carol of the Bulls`,
           $effect`Cowrruption`,
           $effect`Destructive Resolve`,
           $effect`Disdain of the War Snapper`,
-          $effect`Faboooo`,
-          $effect`Feeling Punchy`,
-          $effect`Frenzied, Bloody`,
+          $effect`Faboooo`, // clan mate consult
+          $effect`Feeling Punchy`, // songboom
+          $effect`Frenzied, Bloody`, // vampyre skill
           $effect`Imported Strength`,
           $effect`Jackasses' Symphony of Destruction`,
           $effect`Lack of Body-Building`,
-          $effect`Pronounced Potency`,
+          $effect`Pronounced Potency`, // potion
           $effect`Rage of the Reindeer`,
           $effect`Rictus of Yeg`,
           $effect`Seeing Red`,
