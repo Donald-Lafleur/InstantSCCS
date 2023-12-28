@@ -18783,8 +18783,8 @@ var WeaponDamageQuest = {
         var newSpDam = curSpDam + (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.equippedItem)($slot(weapondamage_templateObject78 || (weapondamage_templateObject78 = weapondamage_taggedTemplateLiteral(["off-hand"])))), "Weapon Damage");
 
         if ((0,external_kolmafia_namespaceObject.myFamiliar)() === template_string_$familiar(weapondamage_templateObject79 || (weapondamage_templateObject79 = weapondamage_taggedTemplateLiteral(["Left-Hand Man"])))) {
-          curSpDamPct += (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.familiarEquippedEquipment)((0,external_kolmafia_namespaceObject.myFamiliar)()), "Weapon Damage Percent");
-          curSpDam += (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.familiarEquippedEquipment)((0,external_kolmafia_namespaceObject.myFamiliar)()), "Weapon Damage");
+          newSpDamPct += (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.familiarEquippedEquipment)((0,external_kolmafia_namespaceObject.myFamiliar)()), "Weapon Damage Percent");
+          newSpDam += (0,external_kolmafia_namespaceObject.numericModifier)((0,external_kolmafia_namespaceObject.familiarEquippedEquipment)((0,external_kolmafia_namespaceObject.myFamiliar)()), "Weapon Damage");
         }
 
         if (Math.floor(newSpDamPct / 50) > Math.floor(curSpDamPct / 50) || Math.floor(newSpDam / 50) > Math.floor(curSpDam / 50)) if (Math.floor(newSpDamPct / 50) > Math.floor(curSpDamPct / 50) || Math.floor(newSpDam / 50) > Math.floor(curSpDam / 50)) tryAcquiringEffect(template_string_$effect(weapondamage_templateObject80 || (weapondamage_templateObject80 = weapondamage_taggedTemplateLiteral(["Offhand Remarkable"]))));
