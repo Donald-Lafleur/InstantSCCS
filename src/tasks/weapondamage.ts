@@ -260,11 +260,11 @@ export const WeaponDamageQuest: Quest = {
             curSpDamPct + numericModifier(equippedItem($slot`off-hand`), "Weapon Damage Percent");
           let newSpDam = curSpDam + numericModifier(equippedItem($slot`off-hand`), "Weapon Damage");
           if (myFamiliar() === $familiar`Left-Hand Man`) {
-            curSpDamPct += numericModifier(
+            newSpDamPct += numericModifier(
               familiarEquippedEquipment(myFamiliar()),
               "Weapon Damage Percent"
             );
-            curSpDam += numericModifier(familiarEquippedEquipment(myFamiliar()), "Weapon Damage");
+            newSpDam += numericModifier(familiarEquippedEquipment(myFamiliar()), "Weapon Damage");
           }
           if (
             Math.floor(newSpDamPct / 50) > Math.floor(curSpDamPct / 50) ||
