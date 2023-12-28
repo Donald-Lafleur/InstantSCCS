@@ -18695,7 +18695,7 @@ var WeaponDamageQuest = {
       usefulEffects.forEach(ef => tryAcquiringEffect(ef, true));
       property_get("instant_weaponTestPulls").split(",").forEach(handleCustomPull);
 
-      if (CommunityService.WeaponDamage.actualCost() > 1 && lib_have(template_string_$item(weapondamage_templateObject69 || (weapondamage_templateObject69 = weapondamage_taggedTemplateLiteral(["glass of raw eggs"]))))) {
+      if (CommunityService.WeaponDamage.actualCost() > 1 && lib_have(template_string_$item(weapondamage_templateObject69 || (weapondamage_templateObject69 = weapondamage_taggedTemplateLiteral(["glass of raw eggs"])))) && !property_get("instant_saveGlassOfRawEggs", false)) {
         (0,external_kolmafia_namespaceObject.eat)(template_string_$item(weapondamage_templateObject70 || (weapondamage_templateObject70 = weapondamage_taggedTemplateLiteral(["glass of raw eggs"]))));
       }
 
